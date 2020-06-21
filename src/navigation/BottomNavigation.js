@@ -5,6 +5,7 @@ import QuoteScreen from '../screens/Quote'
 import SettingScreen from '../screens/Setting'
 import CoopScreen from '../screens/Cooperative'
 import Icon from 'react-native-dynamic-vector-icons'
+import { getAllLocalProvince } from '../redux/actions/province'
 const Tab = createMaterialTopTabNavigator()
 
 export function BottomNavigation() {
@@ -32,6 +33,9 @@ export function BottomNavigation() {
 							name='home'
 							size={25}
 							color={focused ? 'black' : color}
+							onPress={() => {
+								getAllLocalProvince()
+							}}
 						></Icon>
 					),
 				}}

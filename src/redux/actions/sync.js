@@ -2,6 +2,7 @@ import axios from 'axios'
 import { clientUrl } from '../../utility/api'
 import { config } from '../../utility/axiosConfig'
 import { getAllLocalClient, storeAllClientInLocal } from './client'
+import { getAllProvince, storeAllProvinceInLocal } from './province'
 
 const uploadLocalAddedClient = async () => {
 	let localAddedClientList = await getAllLocalClient()
@@ -11,7 +12,7 @@ const uploadLocalAddedClient = async () => {
 
 		try {
 			localAddedClientList.map(async (localClient) => {
-				await axios.post(clientUrl, [localClient], config)
+				await axios.post(clientUrl, [localClient], await config())
 			})
 		} catch (error) {
 			alert('error. try agian for uploading client')
@@ -22,8 +23,7 @@ const uploadLocalAddedClient = async () => {
 
 const getAllClients = async () => {
 	try {
-		const response = await axios.get(clientUrl, config)
-		console.log(response)
+		const response = await axios.get(clientUrl, await config())
 		return response.data.Result.map((client) => ({
 			firstName: client.FirstName,
 			lastName: client.LastName,
@@ -57,4 +57,5 @@ export const sync = async () => {
 	await uploadLocalAddedClient()
 
 	await storeAllClientInLocal(await getAllClients())
+	await storeAllProvinceInLocal(await getAllProvince())
 }

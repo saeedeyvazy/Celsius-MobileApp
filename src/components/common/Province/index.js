@@ -1,6 +1,6 @@
 import { Icon, Picker } from 'native-base'
 import React, { useEffect, useState } from 'react'
-import { getAllProvince } from '../../../redux/actions/province'
+import { getAllLocalProvince } from '../../../redux/actions/province'
 import PickerContainer from '../PickerContainer'
 
 export default Province = ({ onValueChange, children, hasPlaceholder }) => {
@@ -9,7 +9,8 @@ export default Province = ({ onValueChange, children, hasPlaceholder }) => {
 
 	useEffect(() => {
 		const fetchProvinceList = async () => {
-			const result = await getAllProvince()
+			const result = await getAllLocalProvince()
+			console.log(result)
 			setProvinceList(result)
 		}
 		fetchProvinceList()

@@ -60,3 +60,7 @@ buck-out/
 
 # Expo
 .expo/*
+
+.vscode/.react/index.bundle
+
+.vscode/.react/index.map
