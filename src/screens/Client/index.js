@@ -46,7 +46,7 @@ const Client = ({ navigation }) => {
 			</Header>
 			<Content>
 				<List>
-					{clientList.map((client) => {
+					{clientList.map((client, index) => {
 						const { firstName, lastName, city, province } = client
 						return (
 							<ClientComponent
@@ -55,6 +55,7 @@ const Client = ({ navigation }) => {
 								city={city}
 								province={province}
 								navigateToViewClient={() => navigateToViewClient(client)}
+								key={index}
 							></ClientComponent>
 						)
 					})}

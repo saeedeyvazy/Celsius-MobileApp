@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PickerContainer from '../PickerContainer'
 import { Picker, Icon } from 'native-base'
-import { getAllCrops } from '../../../redux/actions/crops'
+import { getAllCrops, getAllLocalCrop } from '../../../redux/actions/crops'
 
 export default Crop = ({ onValueChange }) => {
 	const [cropList, setCropList] = useState([])
@@ -9,7 +9,7 @@ export default Crop = ({ onValueChange }) => {
 
 	useEffect(() => {
 		const fetchCropList = async () => {
-			const result = await getAllCrops()
+			const result = await getAllLocalCrop()
 			setCropList(result)
 		}
 		fetchCropList()
@@ -29,8 +29,8 @@ export default Crop = ({ onValueChange }) => {
 			>
 				<Picker.Item label='Name of Crop' value='' />
 
-				{cropList.map((item) => (
-					<Picker.Item label={item.CropName} value={item.CropId} />
+				{cropList.map((item, index) => (
+					<Picker.Item label={item.CropName} value={item.CropId} key={index} />
 				))}
 			</Picker>
 		</PickerContainer>

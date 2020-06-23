@@ -1,16 +1,21 @@
 import { Icon, Picker } from 'native-base'
 import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 import { getAllLocalProvince } from '../../../redux/actions/province'
 import PickerContainer from '../PickerContainer'
 
-export default Province = ({ onValueChange, children, hasPlaceholder }) => {
-	const [provinceList, setProvinceList] = useState([])
+const Province = ({
+	onValueChange,
+	children,
+	hasPlaceholder,
+	provinceList,
+	getLocalProvinceList,
+}) => {
 	const [selectedProvince, setSelectedProvince] = useState('')
 
 	useEffect(() => {
 		const fetchProvinceList = async () => {
-			const result = await getAllLocalProvince()
-			setProvinceList(result)
+			provinceList.length == 0 ? getLocalProvinceList() : null
 		}
 		fetchProvinceList()
 	}, [])
@@ -33,10 +38,26 @@ export default Province = ({ onValueChange, children, hasPlaceholder }) => {
 					value=''
 				/>
 
-				{provinceList.map((province) => (
-					<Picker.Item label={province} value={province} />
+				{provinceList.map((province, index) => (
+					<Picker.Item label={province} value={province} key={index} />
 				))}
 			</Picker>
 		</PickerContainer>
 	)
 }
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getLocalProvinceList: async () => {
+			dispatch(await getAllLocalProvince())
+		},
+	}
+}
+
+const mapStateToProps = (state) => {
+	const { provinceList } = state
+	return {
+		provinceList,
+	}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Province)

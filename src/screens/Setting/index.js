@@ -10,17 +10,17 @@ import {
 	Text,
 } from 'native-base'
 import React, { useState } from 'react'
+import AwesomeAlert from 'react-native-awesome-alerts'
+import Spinner from 'react-native-loading-spinner-overlay'
 import Modal from 'react-native-modal'
 import CelsiusHeader from '../../components/common/CelsiusHeader'
 import CelsiusInput from '../../components/common/CelsiusInput'
-import SyncServerModal from './SyncServerModal'
-import { isNetworkAvailable } from '../../utility/network'
-import AwesomeAlert from 'react-native-awesome-alerts'
+import { getAllProvince } from '../../redux/actions/province'
 import { sync } from '../../redux/actions/sync'
-import Spinner from 'react-native-loading-spinner-overlay'
+import { isNetworkAvailable } from '../../utility/network'
+import { connect } from 'react-redux'
 
-const Setting = ({ route, navigation }) => {
-	const [isVisibleModal, setIsVisibleModal] = useState(false)
+const Setting = ({ navigation, getProvinceList }) => {
 	const [isVisibleloginModal, setIsVisibleLoginModal] = useState(false)
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
 	const [showCheckConnectionAlert, setShowCheckConnectionAlert] = useState(
@@ -37,7 +37,7 @@ const Setting = ({ route, navigation }) => {
 		if (!isLoggedIn) setIsVisibleLoginModal(true)
 		if (connected && isLoggedIn) {
 			setShowSpinner(true)
-			await sync()
+			getProvinceList()
 			setShowSpinner(false)
 			setTimeout(() => setShowSyncSuccessfully(true), 1500)
 		}
@@ -67,7 +67,7 @@ const Setting = ({ route, navigation }) => {
 						block
 						dark
 						onPress={async () => {
-							syncWithServer()
+							await syncWithServer()
 						}}
 					>
 						<Text uppercase={false}>Sync with server</Text>
@@ -152,4 +152,18 @@ const Setting = ({ route, navigation }) => {
 	)
 }
 
-export default Setting
+const mapDispatchToProps = (dispath) => {
+	return {
+		getProvinceList: async () => {
+			dispath(await getAllProvince())
+		},
+	}
+}
+const mapStateToProps = (state) => {
+	const { provinceList } = state
+
+	return {
+		provinceList,
+	}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Setting)

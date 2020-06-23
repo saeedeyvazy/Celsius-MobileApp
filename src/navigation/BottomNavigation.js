@@ -6,6 +6,8 @@ import SettingScreen from '../screens/Setting'
 import CoopScreen from '../screens/Cooperative'
 import Icon from 'react-native-dynamic-vector-icons'
 import { getAllLocalProvince } from '../redux/actions/province'
+import { getAllLocalCrop } from '../redux/actions/crops'
+import Crop from '../components/common/Crop'
 const Tab = createMaterialTopTabNavigator()
 
 export function BottomNavigation() {
@@ -35,6 +37,7 @@ export function BottomNavigation() {
 							color={focused ? 'black' : color}
 							onPress={() => {
 								getAllLocalProvince()
+								getAllLocalCrop()
 							}}
 						></Icon>
 					),

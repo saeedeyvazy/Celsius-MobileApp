@@ -29,8 +29,8 @@ export default Season = ({ onValueChange }) => {
 			>
 				<Picker.Item label='Season' value='' />
 
-				{seasonList.map((item) => (
-					<Picker.Item label={item.name} value={item.name} />
+				{seasonList.map((item, index) => (
+					<Picker.Item label={item.name} value={item.name} key={index} />
 				))}
 			</Picker>
 		</PickerContainer>

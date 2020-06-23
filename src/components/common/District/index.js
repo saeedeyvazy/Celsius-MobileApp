@@ -31,8 +31,8 @@ export default District = ({ onValueChange, children }) => {
 			>
 				<Picker.Item label='' value='' />
 
-				{districtList.map((district) => (
-					<Picker.Item label={district} value={district} />
+				{districtList.map((district, index) => (
+					<Picker.Item label={district} value={district} key={index} />
 				))}
 			</Picker>
 		</PickerContainer>

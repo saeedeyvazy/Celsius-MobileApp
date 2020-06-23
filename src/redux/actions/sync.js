@@ -3,6 +3,7 @@ import { clientUrl } from '../../utility/api'
 import { config } from '../../utility/axiosConfig'
 import { getAllLocalClient, storeAllClientInLocal } from './client'
 import { getAllProvince, storeAllProvinceInLocal } from './province'
+import { getAllCrops, storeAllCropsInLocal } from './crops'
 
 const uploadLocalAddedClient = async () => {
 	let localAddedClientList = await getAllLocalClient()
@@ -52,10 +53,10 @@ const getAllClients = async () => {
 		return []
 	}
 }
-
 export const sync = async () => {
 	await uploadLocalAddedClient()
 
 	await storeAllClientInLocal(await getAllClients())
 	await storeAllProvinceInLocal(await getAllProvince())
+	await storeAllCropsInLocal(await getAllCrops())
 }
