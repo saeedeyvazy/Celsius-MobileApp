@@ -10,7 +10,6 @@ export default Province = ({ onValueChange, children, hasPlaceholder }) => {
 	useEffect(() => {
 		const fetchProvinceList = async () => {
 			const result = await getAllLocalProvince()
-			console.log(result)
 			setProvinceList(result)
 		}
 		fetchProvinceList()

@@ -17,15 +17,6 @@ import CelsiusHeader from '../../components/common/CelsiusHeader'
 import { clientDetailInfoMap } from '../../utility/apiResponseMap'
 
 const AddViewClient = ({ navigation, route }) => {
-	const confirm = () => {
-		Alert.alert(
-			'Client Saved',
-			'Confirmed!',
-			[{ text: 'OK', onPress: () => console.log('OK Pressed') }],
-			{ cancelable: false }
-		)
-	}
-
 	return (
 		<Container>
 			<CelsiusHeader></CelsiusHeader>
