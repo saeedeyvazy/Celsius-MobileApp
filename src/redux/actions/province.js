@@ -38,7 +38,6 @@ export const getAllLocalProvince = async () => {
 	const localProvinceList = await AsyncStorage.getItem(
 		'@province:localProvince'
 	)
-	console.log(localProvinceList != null ? JSON.parse(localProvinceList) : [])
 	return {
 		type: ACTION_TYPE.GET_LOCAL_STORAGE_PROVINCE,
 		payload: localProvinceList != null ? JSON.parse(localProvinceList) : [],
