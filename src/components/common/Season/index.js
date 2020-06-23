@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import { Icon, Picker } from 'native-base'
+import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import { getAllLocalSeason } from '../../../redux/actions/season'
 import PickerContainer from '../PickerContainer'
-import { Picker, Icon } from 'native-base'
-import { getAllSeason } from '../../../redux/actions/season'
 
-export default Season = ({ onValueChange }) => {
-	const [seasonList, setSeasonList] = useState([])
+const Season = ({ onValueChange, seasonList, getLocalSeasonList }) => {
 	const [selectedSeason, setSelectedSeason] = useState('')
 
 	useEffect(() => {
 		const fetchSeasonList = async () => {
-			const result = await getAllSeason()
-			setSeasonList(result)
+			console.log(seasonList)
+			Array.isArray(seasonList) && !seasonList.length
+				? await getLocalSeasonList()
+				: null
 		}
 		fetchSeasonList()
 	}, [])
@@ -36,3 +38,19 @@ export default Season = ({ onValueChange }) => {
 		</PickerContainer>
 	)
 }
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getLocalSeasonList: async () => {
+			dispatch(await getAllLocalSeason())
+		},
+	}
+}
+
+const mapStateToProps = (state) => {
+	const { seasonList } = state
+	return {
+		seasonList,
+	}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Season)

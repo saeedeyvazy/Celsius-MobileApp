@@ -18,9 +18,15 @@ import CelsiusHeader from '../../components/common/CelsiusHeader'
 import CelsiusInput from '../../components/common/CelsiusInput'
 import { getAllCrops } from '../../redux/actions/crops'
 import { getAllProvince } from '../../redux/actions/province'
+import { getAllSeason } from '../../redux/actions/season'
 import { isNetworkAvailable } from '../../utility/network'
 
-const Setting = ({ navigation, getProvinceList, getCropList }) => {
+const Setting = ({
+	navigation,
+	getProvinceList,
+	getCropList,
+	getSeasonList,
+}) => {
 	const [isVisibleloginModal, setIsVisibleLoginModal] = useState(false)
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
 	const [showCheckConnectionAlert, setShowCheckConnectionAlert] = useState(
@@ -39,6 +45,7 @@ const Setting = ({ navigation, getProvinceList, getCropList }) => {
 			setShowSpinner(true)
 			getProvinceList()
 			getCropList()
+			getSeasonList()
 			setShowSpinner(false)
 			setTimeout(() => setShowSyncSuccessfully(true), 1000)
 		}
@@ -160,6 +167,9 @@ const mapDispatchToProps = (dispath) => {
 		},
 		getCropList: async () => {
 			dispath(await getAllCrops())
+		},
+		getSeasonList: async () => {
+			dispath(await getAllSeason())
 		},
 	}
 }
