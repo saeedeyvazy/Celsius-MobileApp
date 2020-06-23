@@ -20,12 +20,14 @@ import { getAllCrops } from '../../redux/actions/crops'
 import { getAllProvince } from '../../redux/actions/province'
 import { getAllSeason } from '../../redux/actions/season'
 import { isNetworkAvailable } from '../../utility/network'
+import { getAllClients } from '../../redux/actions/client'
 
 const Setting = ({
 	navigation,
 	getProvinceList,
 	getCropList,
 	getSeasonList,
+	getClientList,
 }) => {
 	const [isVisibleloginModal, setIsVisibleLoginModal] = useState(false)
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -43,9 +45,10 @@ const Setting = ({
 		if (!isLoggedIn) setIsVisibleLoginModal(true)
 		if (connected && isLoggedIn) {
 			setShowSpinner(true)
-			getProvinceList()
-			getCropList()
-			getSeasonList()
+			await getProvinceList()
+			await getCropList()
+			await getSeasonList()
+			await getClientList()
 			setShowSpinner(false)
 			setTimeout(() => setShowSyncSuccessfully(true), 1000)
 		}
@@ -170,6 +173,9 @@ const mapDispatchToProps = (dispath) => {
 		},
 		getSeasonList: async () => {
 			dispath(await getAllSeason())
+		},
+		getClientList: async () => {
+			dispath(await getAllClients())
 		},
 	}
 }

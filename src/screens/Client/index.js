@@ -9,12 +9,12 @@ import {
 	List,
 	Text,
 } from 'native-base'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 import ClientComponent from '../../components/common/Client'
 import { getAllLocalClient } from '../../redux/actions/client'
-const Client = ({ navigation }) => {
-	const [clientList, setClientList] = useState([])
 
+const Client = ({ navigation, clientList, getLocalClientList }) => {
 	const navigateToViewClient = (client) => {
 		navigation.navigate('AddViewClientScreen', {
 			clientDetailInfo: client,
@@ -23,8 +23,9 @@ const Client = ({ navigation }) => {
 
 	useEffect(() => {
 		const fetchAllClient = async () => {
-			const response = await getAllLocalClient()
-			setClientList(response)
+			Array.isArray(clientList) && !clientList.length
+				? await getLocalClientList()
+				: null
 		}
 		fetchAllClient()
 	}, [])
@@ -65,4 +66,19 @@ const Client = ({ navigation }) => {
 	)
 }
 
-export default Client
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getLocalClientList: async () => {
+			dispatch(await getAllLocalClient())
+		},
+	}
+}
+
+const mapStateProps = (state) => {
+	const { clientList } = state
+	return {
+		clientList,
+	}
+}
+
+export default connect(mapStateProps, mapDispatchToProps)(Client)
