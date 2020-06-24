@@ -4,9 +4,25 @@ import { clientUrl } from '../../utility/api'
 import { config } from '../../utility/axiosConfig'
 import axios from 'axios'
 
-export const storeAllClientInLocal = async (clientList) => {
-	await AsyncStorage.removeItem('@clients:localAdded')
-	await AsyncStorage.setItem('@clients:localAdded', JSON.stringify(clientList))
+const storeDownloadedClientInLocal = async (clientList) => {
+	await AsyncStorage.removeItem('@clients:allDownloaded')
+	await AsyncStorage.setItem(
+		'@clients:allDownloaded',
+		JSON.stringify(clientList)
+	)
+}
+
+export const getDownloadedClient = async () => {
+	const localDownloadedClientList = await AsyncStorage.getItem(
+		'@clients:allDownloaded'
+	)
+	return {
+		type: ACTION_TYPE.GET_LOCAL_STORAGE_DOWNLOADED_CLIENT,
+		payload:
+			localDownloadedClientList != null
+				? JSON.parse(localDownloadedClientList)
+				: [],
+	}
 }
 
 export const addClient = async (client) => {
@@ -21,6 +37,7 @@ export const addClient = async (client) => {
 			JSON.stringify([...oldClientList, client])
 		)
 	}
+	console.log(JSON.parse(await AsyncStorage.getItem('@clients:localAdded')))
 }
 
 export const getAllLocalClient = async () => {
@@ -57,7 +74,7 @@ export const getAllClients = async () => {
 			mobileMoney: client.MobileMoneyNumber,
 		}))
 
-		storeAllClientInLocal(clients)
+		storeDownloadedClientInLocal(clients)
 		return {
 			type: ACTION_TYPE.GET_CLIENTS,
 			payload: clients,
@@ -66,5 +83,30 @@ export const getAllClients = async () => {
 		alert(error)
 		console.log(error)
 		return []
+	}
+}
+
+export const uploadLocalAddedClient = async () => {
+	let localAddedClientList = JSON.parse(
+		await AsyncStorage.getItem('@clients:localAdded')
+	)
+	if (localAddedClientList != null && localAddedClientList.length > 0) {
+		if (!Array.isArray(localAddedClientList))
+			localAddedClientList = [localAddedClientList]
+
+		try {
+			localAddedClientList.map(async (localClient) => {
+				const response = await axios.post(
+					clientUrl,
+					[localClient],
+					await config()
+				)
+
+				console.log(response)
+			})
+		} catch (error) {
+			alert('error. try agian for uploading client')
+			console.log(error)
+		}
 	}
 }

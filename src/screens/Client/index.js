@@ -12,9 +12,9 @@ import {
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import ClientComponent from '../../components/common/Client'
-import { getAllLocalClient } from '../../redux/actions/client'
+import { getDownloadedClient } from '../../redux/actions/client'
 
-const Client = ({ navigation, clientList, getLocalClientList }) => {
+const Client = ({ navigation, clientList, getDownloadedClientList }) => {
 	const navigateToViewClient = (client) => {
 		navigation.navigate('AddViewClientScreen', {
 			clientDetailInfo: client,
@@ -24,7 +24,7 @@ const Client = ({ navigation, clientList, getLocalClientList }) => {
 	useEffect(() => {
 		const fetchAllClient = async () => {
 			Array.isArray(clientList) && !clientList.length
-				? await getLocalClientList()
+				? await getDownloadedClientList()
 				: null
 		}
 		fetchAllClient()
@@ -68,8 +68,8 @@ const Client = ({ navigation, clientList, getLocalClientList }) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		getLocalClientList: async () => {
-			dispatch(await getAllLocalClient())
+		getDownloadedClientList: async () => {
+			dispatch(await getDownloadedClient())
 		},
 	}
 }

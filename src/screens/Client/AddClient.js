@@ -9,15 +9,16 @@ import {
 	View,
 } from 'native-base'
 import React, { useState } from 'react'
+import AwesomeAlert from 'react-native-awesome-alerts'
 import Calendar from '../../components/common/Calendar'
 import CelsiusHeader from '../../components/common/CelsiusHeader'
 import CelsiusInput from '../../components/common/CelsiusInput'
 import District from '../../components/common/District'
 import Gender from '../../components/common/Gender'
 import Province from '../../components/common/Province'
-import { isNullOrEmpty } from '../../utility/string'
-import AwesomeAlert from 'react-native-awesome-alerts'
 import { addClient } from '../../redux/actions/client'
+import { isNullOrEmpty } from '../../utility/string'
+import { AsyncStorage } from 'react-native'
 
 const AddClient = ({ navigation }) => {
 	const isFillAllRequiredField = () => {

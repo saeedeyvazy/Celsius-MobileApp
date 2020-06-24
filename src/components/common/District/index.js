@@ -1,16 +1,22 @@
 import { Icon, Picker } from 'native-base'
 import React, { useEffect, useState } from 'react'
-import { getAllDistrict } from '../../../redux/actions/district'
+import { getAllLocalDistrict } from '../../../redux/actions/district'
 import PickerContainer from '../PickerContainer'
+import { connect } from 'react-redux'
 
-export default District = ({ onValueChange, children }) => {
-	const [districtList, setDistrictList] = useState([])
+const District = ({
+	onValueChange,
+	children,
+	districtList,
+	getLocalDistrictList,
+}) => {
 	const [selectedDistrict, setSelectedDistrict] = useState('')
 
 	useEffect(() => {
 		const fetchDistrictList = async () => {
-			const result = await getAllDistrict()
-			setDistrictList(result)
+			Array.isArray(districtList) && !districtList.length
+				? await getLocalDistrictList()
+				: null
 		}
 		fetchDistrictList()
 	}, [])
@@ -38,3 +44,18 @@ export default District = ({ onValueChange, children }) => {
 		</PickerContainer>
 	)
 }
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getLocalDistrictList: async () => {
+			dispatch(await getAllLocalDistrict())
+		},
+	}
+}
+
+const mapStateToProps = (state) => {
+	const { districtList } = state
+	return { districtList }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(District)

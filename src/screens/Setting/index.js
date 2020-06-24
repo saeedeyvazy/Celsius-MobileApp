@@ -16,11 +16,15 @@ import Modal from 'react-native-modal'
 import { connect } from 'react-redux'
 import CelsiusHeader from '../../components/common/CelsiusHeader'
 import CelsiusInput from '../../components/common/CelsiusInput'
+import {
+	getAllClients,
+	uploadLocalAddedClient,
+} from '../../redux/actions/client'
 import { getAllCrops } from '../../redux/actions/crops'
+import { getAllDistrict } from '../../redux/actions/district'
 import { getAllProvince } from '../../redux/actions/province'
 import { getAllSeason } from '../../redux/actions/season'
 import { isNetworkAvailable } from '../../utility/network'
-import { getAllClients } from '../../redux/actions/client'
 
 const Setting = ({
 	navigation,
@@ -28,6 +32,7 @@ const Setting = ({
 	getCropList,
 	getSeasonList,
 	getClientList,
+	getDistrictList,
 }) => {
 	const [isVisibleloginModal, setIsVisibleLoginModal] = useState(false)
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -45,10 +50,12 @@ const Setting = ({
 		if (!isLoggedIn) setIsVisibleLoginModal(true)
 		if (connected && isLoggedIn) {
 			setShowSpinner(true)
+			await uploadLocalAddedClient()
 			await getProvinceList()
 			await getCropList()
 			await getSeasonList()
 			await getClientList()
+			await getDistrictList()
 			setShowSpinner(false)
 			setTimeout(() => setShowSyncSuccessfully(true), 1000)
 		}
@@ -176,6 +183,9 @@ const mapDispatchToProps = (dispath) => {
 		},
 		getClientList: async () => {
 			dispath(await getAllClients())
+		},
+		getDistrictList: async () => {
+			dispath(await getAllDistrict())
 		},
 	}
 }
