@@ -2,8 +2,9 @@ import { combineReducers } from 'redux'
 import { provinceReducer } from './ProvinceReducer'
 import { cropReducer } from './CropReducer'
 import { seaonReducer } from './SeasonReducer'
-import { clientReducer } from './ClientReduce'
+import { clientReducer } from './ClientReducer'
 import { districtReducer } from './DistrictReducer'
+import { coopReducer } from './CoopReducer'
 
 export default combineReducers({
 	provinceList: provinceReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
 	seasonList: seaonReducer,
 	clientList: clientReducer,
 	districtList: districtReducer,
+	coopList: coopReducer,
 })

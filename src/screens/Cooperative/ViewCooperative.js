@@ -1,25 +1,33 @@
-import React from 'react'
 import {
+	Body,
+	Button,
 	Container,
 	Content,
+	Icon,
+	Input,
+	Left,
 	List,
 	ListItem,
-	Left,
-	Input,
-	Body,
-	Text,
 	Right,
-	Icon,
+	Text,
 	Thumbnail,
-	Button,
 	View,
 } from 'native-base'
-import CelsiusHeader from '../../components/common/CelsiusHeader'
+import React from 'react'
 import { Alert } from 'react-native'
-import style from './styles'
+import CelsiusHeader from '../../components/common/CelsiusHeader'
 import DeleteUser from '../../components/common/DeleteUser'
+import style from './styles'
 
-const AddCooperative = ({ navigation }) => {
+const AddCooperative = ({ navigation, route }) => {
+	const {
+		members,
+		firstName,
+		lastName,
+		province,
+		city,
+		tradingName,
+	} = route.params.coopDetailInfo
 	const confirm = () => {
 		Alert.alert(
 			'Saved changes',
@@ -53,23 +61,27 @@ const AddCooperative = ({ navigation }) => {
 							<Text style={style.label}>Name</Text>
 						</Left>
 						<Body>
-							<Input placeholder='Migros'></Input>
+							<Input disabled>{tradingName}</Input>
 						</Body>
 					</ListItem>
 					<ListItem>
 						<Left>
-							<Text style={style.label}>Province</Text>
+							<Text style={style.label}>Province - City</Text>
 						</Left>
 						<Body>
-							<Input placeholder='Migros'></Input>
+							<Input disabled>
+								{province} - {city}
+							</Input>
 						</Body>
 					</ListItem>
 					<ListItem>
 						<Left>
-							<Text style={style.label}>Foundation Date</Text>
+							<Text style={style.label}>Name</Text>
 						</Left>
 						<Body>
-							<Input placeholder='1972/02/15'></Input>
+							<Input disabled>
+								{firstName} - {lastName}
+							</Input>
 						</Body>
 					</ListItem>
 				</List>
@@ -83,54 +95,29 @@ const AddCooperative = ({ navigation }) => {
 						bordered
 						dark
 						block
-						onPress={() => navigation.navigate('AddClientScreen')}
+						onPress={() => navigation.navigate('AddCoopScreen')}
 					>
 						<Text>Add User</Text>
 						<Icon name='adduser' type='AntDesign'></Icon>
 					</Button>
 					<Right></Right>
-					<ListItem thumbnail>
-						<Left>
-							<Thumbnail circular source={require('../../img/no-avatar.png')} />
-						</Left>
-						<Body>
-							<Text>Behnam safari</Text>
-							<Text note numberOfLines={1}>
-								Lucerne
-							</Text>
-						</Body>
-						<Right>
-							<DeleteUser></DeleteUser>
-						</Right>
-					</ListItem>
-					<ListItem thumbnail>
-						<Left>
-							<Thumbnail circular source={require('../../img/avatar1.jpg')} />
-						</Left>
-						<Body>
-							<Text>Saeed Evyazy</Text>
-							<Text note numberOfLines={1}>
-								Basel
-							</Text>
-						</Body>
-						<Right>
-							<DeleteUser></DeleteUser>
-						</Right>
-					</ListItem>
-					<ListItem thumbnail>
-						<Left>
-							<Thumbnail circular source={require('../../img/avatar2.jpg')} />
-						</Left>
-						<Body>
-							<Text>Luca Modrich</Text>
-							<Text note numberOfLines={1}>
-								Geneva
-							</Text>
-						</Body>
-						<Right>
-							<DeleteUser></DeleteUser>
-						</Right>
-					</ListItem>
+					{members.map((member, index) => (
+						<ListItem thumbnail key={index}>
+							<Left>
+								<Thumbnail
+									circular
+									source={require('../../img/no-avatar.png')}
+								/>
+							</Left>
+							<Body>
+								<Text>{member}</Text>
+								<Text note numberOfLines={1}></Text>
+							</Body>
+							<Right>
+								<DeleteUser></DeleteUser>
+							</Right>
+						</ListItem>
+					))}
 				</List>
 				<View>
 					<Button iconLeft full dark onPress={() => confirm()}>

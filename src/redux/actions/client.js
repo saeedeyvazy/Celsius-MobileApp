@@ -37,7 +37,6 @@ export const addClient = async (client) => {
 			JSON.stringify([...oldClientList, client])
 		)
 	}
-	console.log(JSON.parse(await AsyncStorage.getItem('@clients:localAdded')))
 }
 
 export const getAllLocalClient = async () => {

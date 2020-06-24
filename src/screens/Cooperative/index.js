@@ -15,10 +15,13 @@ import {
 	ListItem,
 	Right,
 } from 'native-base'
+import { connect } from 'react-redux'
 
-const Cooperative = ({ navigation }) => {
-	const navigateToViewCooperative = () => {
-		navigation.navigate('AddViewCoopScreen')
+const Cooperative = ({ navigation, coopList }) => {
+	const navigateToViewCooperative = (coop) => {
+		navigation.navigate('AddViewCoopScreen', {
+			coopDetailInfo: coop,
+		})
 	}
 
 	return (
@@ -41,64 +44,39 @@ const Cooperative = ({ navigation }) => {
 					<ListItem itemDivider>
 						<Text>Cooperative - Creation and assigning Clients</Text>
 					</ListItem>
-					<ListItem thumbnail>
-						<Left>
-							<Thumbnail
-								circular
-								source={require('../../img/migros-coop.jpeg')}
-							/>
-						</Left>
-						<Body>
-							<Text>Migros</Text>
-							<Text note numberOfLines={1}>
-								Lucerne
-							</Text>
-						</Body>
-						<Right>
-							<Button transparent onPress={() => navigateToViewCooperative()}>
-								<Text>View</Text>
-							</Button>
-						</Right>
-					</ListItem>
-					<ListItem thumbnail>
-						<Left>
-							<Thumbnail
-								circular
-								source={require('../../img/primeo-coop.png')}
-							/>
-						</Left>
-						<Body>
-							<Text>Primeo Energie</Text>
-							<Text note numberOfLines={1}>
-								Basel
-							</Text>
-						</Body>
-						<Right>
-							<Button transparent onPress={() => navigateToViewCooperative()}>
-								<Text>View</Text>
-							</Button>
-						</Right>
-					</ListItem>
-					<ListItem thumbnail>
-						<Left>
-							<Thumbnail circular source={require('../../img/coop-coop.png')} />
-						</Left>
-						<Body>
-							<Text>Coop</Text>
-							<Text note numberOfLines={1}>
-								Geneva
-							</Text>
-						</Body>
-						<Right>
-							<Button transparent onPress={() => navigateToViewCooperative()}>
-								<Text>View</Text>
-							</Button>
-						</Right>
-					</ListItem>
+					{coopList.map((coop, index) => (
+						<ListItem thumbnail key={index}>
+							<Left>
+								<Thumbnail
+									circular
+									source={require('../../img/primeo-coop.png')}
+								/>
+							</Left>
+							<Body>
+								<Text>{coop.title}</Text>
+								<Text note numberOfLines={1}>
+									{`${coop.firstName} - ${coop.lastName}`}
+								</Text>
+							</Body>
+							<Right>
+								<Button
+									transparent
+									onPress={() => navigateToViewCooperative(coop)}
+								>
+									<Text>View</Text>
+								</Button>
+							</Right>
+						</ListItem>
+					))}
 				</List>
 			</Content>
 		</Container>
 	)
 }
 
-export default Cooperative
+const mapStateToProps = (state) => {
+	const { coopList } = state
+	return { coopList }
+}
+
+export default connect(mapStateToProps)(Cooperative)

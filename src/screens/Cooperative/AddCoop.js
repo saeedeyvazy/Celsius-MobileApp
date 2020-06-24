@@ -16,7 +16,7 @@ import District from '../../components/common/District'
 import Province from '../../components/common/Province'
 import { isNullOrEmpty } from '../../utility/string'
 
-const AddClient = ({ navigation }) => {
+const AddCoop = ({ navigation }) => {
 	const isFillAllRequiredField = () => {
 		const isFillFirstName = !isNullOrEmpty(firstName)
 		const isFillLastName = !isNullOrEmpty(lastName)
@@ -226,4 +226,4 @@ const AddClient = ({ navigation }) => {
 	)
 }
 
-export default AddClient
+export default AddCoop
