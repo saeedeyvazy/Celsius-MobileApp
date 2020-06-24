@@ -20,3 +20,21 @@ export const clientDetailInfoMap = {
 	city: 'City',
 	mobileMoney: 'Mobile money',
 }
+
+export const coopDetailInfoMap = {
+	tradingName: 'Trading name',
+	postalCode: 'Postal code',
+	lastName: 'Last name',
+	firstName: 'First name',
+	registrationNumber: 'Registration number',
+	vatNumber: 'VAT number',
+	title: 'Title',
+	email: 'Email',
+	district: 'District',
+	province: 'Province',
+	contractMethod: 'Contract method',
+	mobile: 'Mobile',
+	physAddress: 'Physical address',
+	city: 'City',
+	mobileMoney: 'Mobile money',
+}
