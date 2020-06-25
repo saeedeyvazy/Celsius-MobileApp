@@ -77,6 +77,7 @@ const AddClient = ({ navigation }) => {
 	const [mobileMoney, setMobileMoney] = useState('')
 	const [idNumber, setIdNumber] = useState('')
 	const [saveClientAlertShow, setSaveClientAlertShow] = useState(false)
+	const [saveClientSuccAlertShow, setSaveClientSuccAlertShow] = useState(false)
 	const [requiredFieldAlertShow, setRequiredFieldAlertShow] = useState(false)
 
 	const save = async () => {
@@ -104,6 +105,7 @@ const AddClient = ({ navigation }) => {
 			idNumber,
 			regionId: 3,
 		})
+		setTimeout(() => setSaveClientSuccAlertShow(true), 1000)
 	}
 
 	return (
@@ -272,6 +274,19 @@ const AddClient = ({ navigation }) => {
 				confirmButtonColor='#DD6B55'
 				onCancelPressed={() => setSaveClientAlertShow(false)}
 				onConfirmPressed={() => save()}
+				messageStyle={{ textAlign: 'center' }}
+			/>
+			<AwesomeAlert
+				show={saveClientSuccAlertShow}
+				showProgress={false}
+				title='Client'
+				message='Added Client saved Successfully!'
+				closeOnTouchOutside={true}
+				closeOnHardwareBackPress={true}
+				showConfirmButton={true}
+				confirmText='   OK   '
+				confirmButtonColor='#DD6B55'
+				onConfirmPressed={() => setSaveClientSuccAlertShow(false)}
 				messageStyle={{ textAlign: 'center' }}
 			/>
 			<AwesomeAlert

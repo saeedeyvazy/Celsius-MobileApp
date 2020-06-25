@@ -9,7 +9,6 @@ const Season = ({ onValueChange, seasonList, getLocalSeasonList }) => {
 
 	useEffect(() => {
 		const fetchSeasonList = async () => {
-			console.log(seasonList)
 			Array.isArray(seasonList) && !seasonList.length
 				? await getLocalSeasonList()
 				: null

@@ -14,8 +14,8 @@ import CelsiusHeader from '../../components/common/CelsiusHeader'
 import CelsiusInput from '../../components/common/CelsiusInput'
 import District from '../../components/common/District'
 import Province from '../../components/common/Province'
-import { isNullOrEmpty } from '../../utility/string'
 import { addCoop } from '../../redux/actions/coop'
+import { isNullOrEmpty } from '../../utility/string'
 import uuid from 'react-native-uuid'
 
 const AddCoop = ({ navigation }) => {
@@ -44,30 +44,9 @@ const AddCoop = ({ navigation }) => {
 	const confirm = async () => {
 		if (isFillAllRequiredField()) {
 			setRequiredFieldAlertShow(false)
-			await addCoop({
-				tradingName: tradeName,
-				firstName,
-				lastName,
-				city,
-				registration: regNumber,
-				vatNumber,
-				title,
-				province,
-				district,
-				email,
-				district,
-				mobileNumber,
-				physAddress,
-				mobileMoneyNumber,
-				contactMethod,
-				postalCode,
-				regionId: 3,
-				id: uuid.v1(),
-				members: [],
-			})
-			setSaveClientAlertShow(true)
+			setSaveCoopAlertShow(true)
 		} else {
-			setSaveClientAlertShow(false)
+			setSaveCoopAlertShow(false)
 			setRequiredFieldAlertShow(true)
 		}
 	}
@@ -86,11 +65,34 @@ const AddCoop = ({ navigation }) => {
 	const [city, setCity] = useState('')
 	const [postalCode, setPostalCode] = useState('')
 	const [mobileMoneyNumber, setMobileMoneyNumber] = useState('')
-	const [saveCoopAlertShow, setSaveClientAlertShow] = useState(false)
+	const [saveCoopAlertShow, setSaveCoopAlertShow] = useState(false)
+	const [saveCoopSuccAlertShow, setSaveCoopSuccAlertShow] = useState(false)
 	const [requiredFieldAlertShow, setRequiredFieldAlertShow] = useState(false)
 
 	const save = async () => {
-		setSaveClientAlertShow(false)
+		setSaveCoopAlertShow(false)
+		await addCoop({
+			tradingName: tradeName,
+			firstName,
+			lastName,
+			city,
+			registration: regNumber,
+			vatNumber,
+			title,
+			province,
+			district,
+			email,
+			district,
+			mobileNumber,
+			physAddress,
+			mobileMoneyNumber,
+			contactMethod,
+			postalCode,
+			regionId: 3,
+			id: uuid.v1(),
+			members: [],
+		})
+		setTimeout(() => setSaveCoopSuccAlertShow(true), 1000)
 	}
 
 	return (
@@ -228,8 +230,21 @@ const AddCoop = ({ navigation }) => {
 				cancelText='No, cancel'
 				confirmText='Yes, save it'
 				confirmButtonColor='#DD6B55'
-				onCancelPressed={() => setSaveClientAlertShow(false)}
+				onCancelPressed={() => setSaveCoopAlertShow(false)}
 				onConfirmPressed={() => save()}
+				messageStyle={{ textAlign: 'center' }}
+			/>
+			<AwesomeAlert
+				show={saveCoopSuccAlertShow}
+				showProgress={false}
+				title='Cooperative'
+				message='Added Coop saved Successfully!'
+				closeOnTouchOutside={true}
+				closeOnHardwareBackPress={true}
+				showConfirmButton={true}
+				confirmText='   OK   '
+				confirmButtonColor='#DD6B55'
+				onConfirmPressed={() => setSaveCoopSuccAlertShow(false)}
 				messageStyle={{ textAlign: 'center' }}
 			/>
 			<AwesomeAlert

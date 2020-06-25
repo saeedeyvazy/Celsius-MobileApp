@@ -94,8 +94,6 @@ export const uploadLocalAddedClient = async () => {
 					[localClient],
 					await config()
 				)
-
-				console.log(response)
 			})
 		} catch (error) {
 			alert('error. try agian for uploading client')

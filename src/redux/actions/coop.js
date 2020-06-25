@@ -29,8 +29,6 @@ export const addCoop = async (coop) => {
 	coopList.push(coop)
 
 	await AsyncStorage.setItem('@coops:localAdded', JSON.stringify(coopList))
-
-	console.log(JSON.parse(await AsyncStorage.getItem('@coops:localAdded')))
 }
 
 export const getAllLocaCoop = async () => {
@@ -88,8 +86,7 @@ export const uploadLocalAddedCoop = async () => {
 
 		try {
 			localAddedCoopList.map(async (localCoop) => {
-				const response = await axios.post(coopUrl, [localCoop], await config())
-				console.log(response)
+				await axios.post(coopUrl, [localCoop], await config())
 			})
 		} catch (error) {
 			alert('error. try agian for uploading coop')
