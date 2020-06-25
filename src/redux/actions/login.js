@@ -17,3 +17,10 @@ export const login = async (username, pwd) => {
 		return false
 	}
 }
+
+export const rememberMe = async (username, password) => {
+	await AsyncStorage.setItem('@login:authorization', {
+		username,
+		password,
+	})
+}

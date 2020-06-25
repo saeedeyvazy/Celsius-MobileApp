@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import LoginScreen from 'react-native-login-screen'
-import { login } from '../../redux/actions/login'
+import { login, rememberMe } from '../../redux/actions/login'
 import AwesomeAlert from 'react-native-awesome-alerts'
 
 const Login = ({ navigation }) => {
@@ -29,6 +29,7 @@ const Login = ({ navigation }) => {
 				passwordOnChangeText={(password) => setPwd(password)}
 				onSwitchValueChange={(switchValue) => {
 					setSwitchValue(switchValue)
+					switchValue ? rememberMe(username, pwd) : null
 				}}
 			></LoginScreen>
 			<AwesomeAlert
