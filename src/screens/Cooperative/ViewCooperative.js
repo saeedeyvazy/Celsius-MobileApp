@@ -17,17 +17,12 @@ import React from 'react'
 import { Alert } from 'react-native'
 import CelsiusHeader from '../../components/common/CelsiusHeader'
 import DeleteUser from '../../components/common/DeleteUser'
+import { coopDetailInfoMap } from '../../utility/apiResponseMap'
+import { isNullOrEmpty } from '../../utility/string'
 import style from './styles'
 
 const AddCooperative = ({ navigation, route }) => {
-	const {
-		members,
-		firstName,
-		lastName,
-		province,
-		city,
-		tradingName,
-	} = route.params.coopDetailInfo
+	const { coopDetailInfo } = route.params
 	const confirm = () => {
 		Alert.alert(
 			'Saved changes',
@@ -56,34 +51,20 @@ const AddCooperative = ({ navigation, route }) => {
 					<ListItem itemDivider>
 						<Text>Coop Information</Text>
 					</ListItem>
-					<ListItem first>
-						<Left>
-							<Text style={style.label}>Name</Text>
-						</Left>
-						<Body>
-							<Input disabled>{tradingName}</Input>
-						</Body>
-					</ListItem>
-					<ListItem>
-						<Left>
-							<Text style={style.label}>Province - City</Text>
-						</Left>
-						<Body>
-							<Input disabled>
-								{province} - {city}
-							</Input>
-						</Body>
-					</ListItem>
-					<ListItem>
-						<Left>
-							<Text style={style.label}>Name</Text>
-						</Left>
-						<Body>
-							<Input disabled>
-								{firstName} - {lastName}
-							</Input>
-						</Body>
-					</ListItem>
+					{Object.keys(coopDetailInfo).map((key) => {
+						return !isNullOrEmpty(coopDetailInfoMap[key]) ? (
+							<ListItem first>
+								<Left>
+									<Text style={style.label}>{coopDetailInfoMap[key]}</Text>
+								</Left>
+								<Body>
+									<Input disabled style={{ fontSize: 13 }}>
+										{coopDetailInfo[key]}
+									</Input>
+								</Body>
+							</ListItem>
+						) : null
+					})}
 				</List>
 				<List>
 					<ListItem itemDivider>
@@ -101,7 +82,7 @@ const AddCooperative = ({ navigation, route }) => {
 						<Icon name='adduser' type='AntDesign'></Icon>
 					</Button>
 					<Right></Right>
-					{members.map((member, index) => (
+					{coopDetailInfo.members.map((member, index) => (
 						<ListItem thumbnail key={index}>
 							<Left>
 								<Thumbnail

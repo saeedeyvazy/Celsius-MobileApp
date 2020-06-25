@@ -23,17 +23,14 @@ export const getDownloadedCoop = async () => {
 }
 
 export const addCoop = async (coop) => {
-	let oldCoopList = await AsyncStorage.getItem('@coops:localAdded')
+	let coopList = JSON.parse(await AsyncStorage.getItem('@coops:localAdded'))
 
-	if (oldCoopList == null)
-		await AsyncStorage.setItem('@coops:localAdded', JSON.stringify(coop))
-	else {
-		oldCoopList = [JSON.parse(oldCoopList)]
-		await AsyncStorage.setItem(
-			'@coops:localAdded',
-			JSON.stringify([...oldCoopList, coop])
-		)
-	}
+	coopList == null ? (coopList = []) : null
+	coopList.push(coop)
+
+	await AsyncStorage.setItem('@coops:localAdded', JSON.stringify(coopList))
+
+	console.log(JSON.parse(await AsyncStorage.getItem('@coops:localAdded')))
 }
 
 export const getAllLocaCoop = async () => {
@@ -92,6 +89,7 @@ export const uploadLocalAddedCoop = async () => {
 		try {
 			localAddedCoopList.map(async (localCoop) => {
 				const response = await axios.post(coopUrl, [localCoop], await config())
+				console.log(response)
 			})
 		} catch (error) {
 			alert('error. try agian for uploading coop')

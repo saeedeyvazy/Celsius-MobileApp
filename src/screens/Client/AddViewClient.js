@@ -12,7 +12,6 @@ import {
 	View,
 } from 'native-base'
 import React from 'react'
-import { Alert } from 'react-native'
 import CelsiusHeader from '../../components/common/CelsiusHeader'
 import { clientDetailInfoMap } from '../../utility/apiResponseMap'
 

@@ -15,16 +15,18 @@ import CelsiusInput from '../../components/common/CelsiusInput'
 import District from '../../components/common/District'
 import Province from '../../components/common/Province'
 import { isNullOrEmpty } from '../../utility/string'
+import { addCoop } from '../../redux/actions/coop'
+import uuid from 'react-native-uuid'
 
 const AddCoop = ({ navigation }) => {
 	const isFillAllRequiredField = () => {
 		const isFillFirstName = !isNullOrEmpty(firstName)
 		const isFillLastName = !isNullOrEmpty(lastName)
-		const isFillMobileMoney = !isNullOrEmpty(mobileMoney)
+		const isFillMobileMoney = !isNullOrEmpty(mobileMoneyNumber)
 		const isFillProvince = !isNullOrEmpty(province)
 		const isFillDistrict = !isNullOrEmpty(district)
 		const isFillTitle = !isNullOrEmpty(title)
-		const isFillMobile = !isNullOrEmpty(mobile)
+		const isFillMobile = !isNullOrEmpty(mobileNumber)
 		const isPhysAddress = !isNullOrEmpty(physAddress)
 
 		return (
@@ -39,9 +41,30 @@ const AddCoop = ({ navigation }) => {
 		)
 	}
 
-	const confirm = () => {
+	const confirm = async () => {
 		if (isFillAllRequiredField()) {
 			setRequiredFieldAlertShow(false)
+			await addCoop({
+				tradingName: tradeName,
+				firstName,
+				lastName,
+				city,
+				registration: regNumber,
+				vatNumber,
+				title,
+				province,
+				district,
+				email,
+				district,
+				mobileNumber,
+				physAddress,
+				mobileMoneyNumber,
+				contactMethod,
+				postalCode,
+				regionId: 3,
+				id: uuid.v1(),
+				members: [],
+			})
 			setSaveClientAlertShow(true)
 		} else {
 			setSaveClientAlertShow(false)
@@ -49,7 +72,7 @@ const AddCoop = ({ navigation }) => {
 		}
 	}
 	const [tradeName, setTradeName] = useState('')
-	const [Vatnumber, setVatNumber] = useState('')
+	const [vatNumber, setVatNumber] = useState('')
 	const [regNumber, setRegNumber] = useState('')
 	const [title, setTitle] = useState('')
 	const [firstName, setFirstName] = useState('')
@@ -58,11 +81,11 @@ const AddCoop = ({ navigation }) => {
 	const [province, setProvince] = useState('')
 	const [district, setDistrict] = useState('')
 	const [contactMethod, setContactMethod] = useState('')
-	const [mobile, setMobile] = useState('')
+	const [mobileNumber, setMobileNumber] = useState('')
 	const [physAddress, setPhysAddress] = useState('')
 	const [city, setCity] = useState('')
 	const [postalCode, setPostalCode] = useState('')
-	const [mobileMoney, setMobileMoney] = useState('')
+	const [mobileMoneyNumber, setMobileMoneyNumber] = useState('')
 	const [saveCoopAlertShow, setSaveClientAlertShow] = useState(false)
 	const [requiredFieldAlertShow, setRequiredFieldAlertShow] = useState(false)
 
@@ -93,7 +116,7 @@ const AddCoop = ({ navigation }) => {
 					<CelsiusInput
 						label='VAT number'
 						onChangeText={(value) => setVatNumber(value)}
-						value={Vatnumber}
+						value={vatNumber}
 					></CelsiusInput>
 					<CelsiusInput
 						label='Title'
@@ -139,8 +162,8 @@ const AddCoop = ({ navigation }) => {
 					<CelsiusInput
 						required
 						label='Mobile number'
-						onChangeText={(value) => setMobile(value)}
-						value={mobile}
+						onChangeText={(value) => setMobileNumber(value)}
+						value={mobileNumber}
 					></CelsiusInput>
 					<CelsiusInput
 						required
@@ -162,8 +185,8 @@ const AddCoop = ({ navigation }) => {
 					<CelsiusInput
 						required
 						label='Mobile money number'
-						onChangeText={(value) => setMobileMoney(value)}
-						value={mobileMoney}
+						onChangeText={(value) => setMobileMoneyNumber(value)}
+						value={mobileMoneyNumber}
 						keyboardType='numeric'
 					></CelsiusInput>
 				</Form>

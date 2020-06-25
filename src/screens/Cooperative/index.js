@@ -1,28 +1,38 @@
-import React from 'react'
 import {
-	Container,
-	Header,
+	Body,
 	Button,
+	Container,
+	Content,
+	Header,
 	Icon,
 	Input,
-	Content,
-	List,
-	Left,
-	Thumbnail,
-	Body,
-	Text,
 	Item,
+	Left,
+	List,
 	ListItem,
 	Right,
+	Text,
+	Thumbnail,
 } from 'native-base'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { getDownloadedCoop } from '../../redux/actions/coop'
 
-const Cooperative = ({ navigation, coopList }) => {
+const Cooperative = ({ navigation, coopList, getDownloadedCoopList }) => {
 	const navigateToViewCooperative = (coop) => {
 		navigation.navigate('AddViewCoopScreen', {
 			coopDetailInfo: coop,
 		})
 	}
+
+	useEffect(() => {
+		const fetchAllCoop = async () => {
+			Array.isArray(coopList) && !coopList.length
+				? await getDownloadedCoopList()
+				: null
+		}
+		fetchAllCoop()
+	}, [])
 
 	return (
 		<Container>
@@ -74,9 +84,17 @@ const Cooperative = ({ navigation, coopList }) => {
 	)
 }
 
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getDownloadedCoopList: async () => {
+			dispatch(await getDownloadedCoop())
+		},
+	}
+}
+
 const mapStateToProps = (state) => {
 	const { coopList } = state
 	return { coopList }
 }
 
-export default connect(mapStateToProps)(Cooperative)
+export default connect(mapStateToProps, mapDispatchToProps)(Cooperative)

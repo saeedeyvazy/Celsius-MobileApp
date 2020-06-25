@@ -26,17 +26,10 @@ export const getDownloadedClient = async () => {
 }
 
 export const addClient = async (client) => {
-	let oldClientList = await AsyncStorage.getItem('@clients:localAdded')
-
-	if (oldClientList == null)
-		await AsyncStorage.setItem('@clients:localAdded', JSON.stringify(client))
-	else {
-		oldClientList = [JSON.parse(oldClientList)]
-		await AsyncStorage.setItem(
-			'@clients:localAdded',
-			JSON.stringify([...oldClientList, client])
-		)
-	}
+	let clientList = JSON.parse(await AsyncStorage.getItem('@clients:localAdded'))
+	clientList == null ? (clientList = []) : null
+	clientList.push(client)
+	await AsyncStorage.setIltem('@clients:localAdded', JSON.stringify(clientList))
 }
 
 export const getAllLocalClient = async () => {
@@ -89,6 +82,7 @@ export const uploadLocalAddedClient = async () => {
 	let localAddedClientList = JSON.parse(
 		await AsyncStorage.getItem('@clients:localAdded')
 	)
+
 	if (localAddedClientList != null && localAddedClientList.length > 0) {
 		if (!Array.isArray(localAddedClientList))
 			localAddedClientList = [localAddedClientList]
