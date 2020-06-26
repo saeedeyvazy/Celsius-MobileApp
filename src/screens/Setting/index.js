@@ -16,17 +16,18 @@ import Modal from 'react-native-modal'
 import { connect } from 'react-redux'
 import CelsiusHeader from '../../components/common/CelsiusHeader'
 import CelsiusInput from '../../components/common/CelsiusInput'
+import { getAllChannelPartner } from '../../redux/actions/channelPartner'
 import {
 	getAllClients,
 	uploadLocalAddedClient,
 } from '../../redux/actions/client'
+import { getAllCoops, uploadLocalAddedCoop } from '../../redux/actions/coop'
 import { getAllCrops } from '../../redux/actions/crops'
 import { getAllDistrict } from '../../redux/actions/district'
+import { getAllCompany } from '../../redux/actions/company'
 import { getAllProvince } from '../../redux/actions/province'
 import { getAllSeason } from '../../redux/actions/season'
 import { isNetworkAvailable } from '../../utility/network'
-import { uploadLocalAddedCoop, getAllCoops } from '../../redux/actions/coop'
-import { getAllChannelPartner } from '../../redux/actions/channelPartner'
 
 const Setting = ({
 	navigation,
@@ -37,6 +38,7 @@ const Setting = ({
 	getDistrictList,
 	getCoopList,
 	getChannelPartnerList,
+	getCompanyList,
 }) => {
 	const [isVisibleloginModal, setIsVisibleLoginModal] = useState(false)
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -59,6 +61,7 @@ const Setting = ({
 
 			await getProvinceList()
 			await getChannelPartnerList()
+			await getCompanyList()
 			await getCropList()
 			await getSeasonList()
 			await getClientList()
@@ -202,6 +205,9 @@ const mapDispatchToProps = (dispath) => {
 
 		getChannelPartnerList: async () => {
 			dispath(await getAllChannelPartner())
+		},
+		getCompanyList: async () => {
+			dispath(await getAllCompany())
 		},
 	}
 }

@@ -14,20 +14,17 @@ import CelsiusInput from '../../components/common/CelsiusInput'
 import PickerContainer from '../../components/common/PickerContainer'
 import styles from './style'
 import ChannelPartner from '../../components/common/ChannelPartner'
+import Company from '../../components/common/Company'
 
 const Buying = ({ navigation, route }) => {
 	const [showConfirmAlert, setShowConfirmAlert] = useState(false)
 	const [channelPartner, setChannelPartner] = useState('')
+	const [company, setCompany] = useState('')
 
 	return (
 		<Container>
 			<CelsiusHeader></CelsiusHeader>
 			<Content>
-				<CelsiusInput
-					label='Insurance Partner'
-					value='FSD Zambia'
-					editable={false}
-				></CelsiusInput>
 				<CelsiusInput
 					label='Premium(ZMW)'
 					value={route.params.premium}
@@ -38,6 +35,11 @@ const Buying = ({ navigation, route }) => {
 						Channel Partner
 					</Label>
 				</ChannelPartner>
+				<Company onValueChange={(value) => setCompany(value)}>
+					<Label style={{ fontSize: 14, marginLeft: 10, marginTop: 14 }}>
+						Insurance Partner
+					</Label>
+				</Company>
 				<PickerContainer>
 					<Picker enabled={false}>
 						<Picker.Item label='Intermediary' value='key0' />

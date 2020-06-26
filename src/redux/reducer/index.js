@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux'
-import { provinceReducer } from './ProvinceReducer'
-import { cropReducer } from './CropReducer'
-import { seaonReducer } from './SeasonReducer'
-import { clientReducer } from './ClientReducer'
-import { districtReducer } from './DistrictReducer'
-import { coopReducer } from './CoopReducer'
 import { channelPartnerReducer } from './ChannelPartnerReducer'
+import { clientReducer } from './ClientReducer'
+import { companyReducer } from './CompanyReducer'
+import { coopReducer } from './CoopReducer'
+import { cropReducer } from './CropReducer'
+import { districtReducer } from './DistrictReducer'
+import { provinceReducer } from './ProvinceReducer'
+import { seaonReducer } from './SeasonReducer'
 
 export default combineReducers({
 	provinceList: provinceReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
 	districtList: districtReducer,
 	coopList: coopReducer,
 	channelPartnerList: channelPartnerReducer,
+	companyList: companyReducer,
 })

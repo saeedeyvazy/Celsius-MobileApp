@@ -23,6 +23,7 @@ import {
 } from '../../redux/actions/client'
 import { isNullOrEmpty } from '../../utility/string'
 import ChannelPartner from '../../components/common/ChannelPartner'
+import Company from '../../components/common/Company'
 
 const AddClient = ({ navigation, getAllLocalDnlClientList }) => {
 	const isFillAllRequiredField = () => {
@@ -184,6 +185,11 @@ const AddClient = ({ navigation, getAllLocalDnlClientList }) => {
 							Channel Partner
 						</Label>
 					</ChannelPartner>
+					<Company onValueChange={(value) => setInsuranceCompany(value)}>
+						<Label style={{ fontSize: 14, marginLeft: 10, marginTop: 14 }}>
+							Insurance Partner
+						</Label>
+					</Company>
 					<District onValueChange={(value) => setDistrict(value)}>
 						<Label style={{ fontSize: 14, marginLeft: 10, marginTop: 14 }}>
 							District
