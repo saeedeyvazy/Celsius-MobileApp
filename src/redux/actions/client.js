@@ -25,6 +25,23 @@ export const getDownloadedClient = async () => {
 	}
 }
 
+export const getAllLocalAndDlnClientList = async () => {
+	let localClientList = JSON.parse(
+		await AsyncStorage.getItem('@clients:localAdded')
+	)
+	let dnlClientList = JSON.parse(
+		await AsyncStorage.getItem('@clients:allDownloaded')
+	)
+	let allClients = [...localClientList, ...dnlClientList]
+	return {
+		type: ACTION_TYPE.GET_DNL_LOCAL_CLIENT,
+		payload: allClients.filter(
+			(v, i, a) =>
+				a.findIndex((t) => JSON.stringify(t) === JSON.stringify(v)) === i
+		),
+	}
+}
+
 export const addClient = async (client) => {
 	let clientList = JSON.parse(await AsyncStorage.getItem('@clients:localAdded'))
 	clientList == null ? (clientList = []) : null
@@ -64,6 +81,7 @@ export const getAllClients = async () => {
 			physAddress: client.PhysAddress,
 			postalCode: client.PostalCode,
 			mobileMoney: client.MobileMoneyNumber,
+			insuranceCompany: client.InsuranceCompany,
 		}))
 
 		storeDownloadedClientInLocal(clients)

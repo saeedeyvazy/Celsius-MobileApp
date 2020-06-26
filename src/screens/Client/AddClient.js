@@ -10,17 +10,20 @@ import {
 } from 'native-base'
 import React, { useState } from 'react'
 import AwesomeAlert from 'react-native-awesome-alerts'
+import { connect } from 'react-redux'
 import Calendar from '../../components/common/Calendar'
 import CelsiusHeader from '../../components/common/CelsiusHeader'
 import CelsiusInput from '../../components/common/CelsiusInput'
 import District from '../../components/common/District'
 import Gender from '../../components/common/Gender'
 import Province from '../../components/common/Province'
-import { addClient } from '../../redux/actions/client'
+import {
+	addClient,
+	getAllLocalAndDlnClientList,
+} from '../../redux/actions/client'
 import { isNullOrEmpty } from '../../utility/string'
-import { AsyncStorage } from 'react-native'
 
-const AddClient = ({ navigation }) => {
+const AddClient = ({ navigation, getAllLocalDnlClientList }) => {
 	const isFillAllRequiredField = () => {
 		const isFillFirstName = !isNullOrEmpty(firstName)
 		const isFillLastName = !isNullOrEmpty(lastName)
@@ -47,7 +50,7 @@ const AddClient = ({ navigation }) => {
 		)
 	}
 
-	const confirm = () => {
+	const confirm = async () => {
 		if (isFillAllRequiredField()) {
 			setRequiredFieldAlertShow(false)
 			setSaveClientAlertShow(true)
@@ -76,6 +79,8 @@ const AddClient = ({ navigation }) => {
 	const [postalCode, setPostalCode] = useState('')
 	const [mobileMoney, setMobileMoney] = useState('')
 	const [idNumber, setIdNumber] = useState('')
+	const [insuranceCompany, setInsuranceCompany] = useState('')
+
 	const [saveClientAlertShow, setSaveClientAlertShow] = useState(false)
 	const [saveClientSuccAlertShow, setSaveClientSuccAlertShow] = useState(false)
 	const [requiredFieldAlertShow, setRequiredFieldAlertShow] = useState(false)
@@ -104,7 +109,10 @@ const AddClient = ({ navigation }) => {
 			mobileMoney,
 			idNumber,
 			regionId: 3,
+			insuranceCompany,
 		})
+		await getAllLocalDnlClientList()
+
 		setTimeout(() => setSaveClientSuccAlertShow(true), 1000)
 	}
 
@@ -306,4 +314,11 @@ const AddClient = ({ navigation }) => {
 	)
 }
 
-export default AddClient
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getAllLocalDnlClientList: async () => {
+			dispatch(await getAllLocalAndDlnClientList())
+		},
+	}
+}
+export default connect(null, mapDispatchToProps)(AddClient)

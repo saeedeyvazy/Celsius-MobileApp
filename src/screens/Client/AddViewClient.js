@@ -45,11 +45,11 @@ const AddViewClient = ({ navigation, route }) => {
 					rounded
 					full
 					iconLeft
-					danger
+					warning
 					onPress={() => navigation.navigate('Client')}
 				>
-					<Icon name='trash' type='Entypo'></Icon>
-					<Text>Delete</Text>
+					<Icon name='cross' type='Entypo'></Icon>
+					<Text>Cancel</Text>
 				</Button>
 			</View>
 		</Container>

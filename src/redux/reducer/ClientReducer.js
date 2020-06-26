@@ -9,6 +9,12 @@ export const clientReducer = (state = INITIAL_STATE, action) => {
 		case ACTION_TYPE.GET_LOCAL_STORAGE_DOWNLOADED_CLIENT:
 			return action.payload
 
+		case ACTION_TYPE.GET_LOCAL_STORAGE_CLIENT:
+			return action.payload
+
+		case ACTION_TYPE.GET_DNL_LOCAL_CLIENT:
+			return action.payload
+
 		default:
 			return state
 	}

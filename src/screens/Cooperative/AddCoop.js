@@ -202,7 +202,7 @@ const AddCoop = ({ navigation }) => {
 					iconLeft
 					full
 					warning
-					onPress={() => navigation.navigate('Client')}
+					onPress={() => navigation.navigate('Coop')}
 				>
 					<Icon name='cross' type='Entypo'></Icon>
 					<Text>Cancel</Text>
@@ -212,7 +212,7 @@ const AddCoop = ({ navigation }) => {
 					full
 					iconLeft
 					danger
-					onPress={() => navigation.navigate('Client')}
+					onPress={() => navigation.navigate('Coop')}
 				>
 					<Icon name='trash' type='Entypo'></Icon>
 					<Text>Delete</Text>
@@ -230,7 +230,9 @@ const AddCoop = ({ navigation }) => {
 				cancelText='No, cancel'
 				confirmText='Yes, save it'
 				confirmButtonColor='#DD6B55'
-				onCancelPressed={() => setSaveCoopAlertShow(false)}
+				onCancelPressed={() => {
+					setSaveCoopAlertShow(false)
+				}}
 				onConfirmPressed={() => save()}
 				messageStyle={{ textAlign: 'center' }}
 			/>
@@ -244,7 +246,10 @@ const AddCoop = ({ navigation }) => {
 				showConfirmButton={true}
 				confirmText='   OK   '
 				confirmButtonColor='#DD6B55'
-				onConfirmPressed={() => setSaveCoopSuccAlertShow(false)}
+				onConfirmPressed={() => {
+					setSaveCoopSuccAlertShow(false)
+					navigation.navigate('Coop')
+				}}
 				messageStyle={{ textAlign: 'center' }}
 			/>
 			<AwesomeAlert

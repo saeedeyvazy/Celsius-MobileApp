@@ -85,7 +85,7 @@ const ViewQuote = ({
 							</Left>
 							<Body>
 								<Input
-									style={{ color: '#00008b' }}
+									style={{ color: '#00008b', fontSize: 12 }}
 									editable={false}
 									value={province}
 								></Input>

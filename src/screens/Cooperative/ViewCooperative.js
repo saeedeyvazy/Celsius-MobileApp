@@ -78,7 +78,7 @@ const AddCooperative = ({ navigation, route }) => {
 						block
 						onPress={() => navigation.navigate('AddCoopScreen')}
 					>
-						<Text>Add User</Text>
+						<Text>Add Member</Text>
 						<Icon name='adduser' type='AntDesign'></Icon>
 					</Button>
 					<Right></Right>

@@ -6,25 +6,10 @@ import CelsiusInput from '../../components/common/CelsiusInput'
 import PickerContainer from '../../components/common/PickerContainer'
 import { incrementDate } from '../../utility/Date'
 import styles from './style'
+import AwesomeAlert from 'react-native-awesome-alerts'
 
 const Buying = ({ navigation, route }) => {
-	const confirm = () => {
-		Alert.alert(
-			'Confirmation/Payment Details',
-			'Confirmed!',
-			[{ text: 'OK', onPress: () => navigation.navigate('Quote') }],
-			{ cancelable: false }
-		)
-	}
-
-	const [premiumDate, setPremiumDate] = useState('')
-	useEffect(
-		() =>
-			setPremiumDate(
-				incrementDate(route.params.premiumDate, 15).toDateString()
-			),
-		[]
-	)
+	const [showConfirmAlert, setShowConfirmAlert] = useState(false)
 
 	return (
 		<Container>
@@ -40,18 +25,9 @@ const Buying = ({ navigation, route }) => {
 					value={route.params.premium}
 					editable={false}
 				></CelsiusInput>
-				<CelsiusInput
-					label='Transaction date'
-					value='2020/05/10'
-					editable={false}
-				></CelsiusInput>
-				<CelsiusInput
-					label='Premium(ZMW) date'
-					editable={false}
-					value={premiumDate}
-				></CelsiusInput>
+
 				<PickerContainer>
-					<Picker>
+					<Picker enabled={false}>
 						<Picker.Item label='Intermediary' value='key0' />
 						<Picker.Item label='John doe' value='key1' />
 						<Picker.Item label='Jean doe' value='key2' />
@@ -66,15 +42,29 @@ const Buying = ({ navigation, route }) => {
 					</Picker>
 				</PickerContainer>
 				<View style={styles.buttonContainer}>
-					<Button danger rounded>
+					<Button danger rounded onPress={() => navigation.navigate('Quote')}>
 						<Text>Cancel</Text>
 					</Button>
 
-					<Button dark rounded onPress={() => confirm()}>
+					<Button dark rounded onPress={() => setShowConfirmAlert(true)}>
 						<Text>Confirm</Text>
 					</Button>
 				</View>
 			</Content>
+			<AwesomeAlert
+				show={showConfirmAlert}
+				showProgress={false}
+				title='Confirmed!'
+				message=''
+				closeOnTouchOutside={true}
+				closeOnHardwareBackPress={true}
+				showConfirmButton={true}
+				confirmText='   OK   '
+				confirmButtonColor='#DD6B55'
+				onConfirmPressed={() => setShowConfirmAlert(false)}
+				messageStyle={{ textAlign: 'center' }}
+				contentContainerStyle={{ width: 300 }}
+			/>
 		</Container>
 	)
 }

@@ -18,7 +18,9 @@ export const clientDetailInfoMap = {
 	mobile: 'Mobile',
 	physAddress: 'Physical address',
 	city: 'City',
+	city: 'City',
 	mobileMoney: 'Mobile money',
+	insuranceCompany: 'Insurance Company',
 }
 
 export const coopDetailInfoMap = {
@@ -36,5 +38,5 @@ export const coopDetailInfoMap = {
 	mobile: 'Mobile',
 	physAddress: 'Physical address',
 	city: 'City',
-	mobileMoney: 'Mobile money',
+	mobileMoney: 'Mobile money number',
 }

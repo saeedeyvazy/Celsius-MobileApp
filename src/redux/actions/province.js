@@ -6,14 +6,17 @@ import { ACTION_TYPE } from './actionType'
 export const getAllProvince = async () => {
 	try {
 		const response = await axios.get(regionUrl, await config())
+		console.log(response.data.Result)
 		await storeAllProvinceInLocal([
-			...new Set(response.data.Result.map((result) => result.ProvinceName)),
+			...new Set(response.data.Result.map((result) => result.NameWithProvince)),
 		])
 
 		return {
 			type: ACTION_TYPE.GET_PROVINCE,
 			payload: [
-				...new Set(response.data.Result.map((result) => result.ProvinceName)),
+				...new Set(
+					response.data.Result.map((result) => result.NameWithProvince)
+				),
 			],
 		}
 	} catch (error) {
