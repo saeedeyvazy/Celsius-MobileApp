@@ -107,11 +107,8 @@ export const uploadLocalAddedClient = async () => {
 
 		try {
 			localAddedClientList.map(async (localClient) => {
-				const response = await axios.post(
-					clientUrl,
-					[localClient],
-					await config()
-				)
+				await axios.post(clientUrl, [localClient], await config())
+				await AsyncStorage.removeItem('@clients:localAdded')
 			})
 		} catch (error) {
 			alert('error. try agian for uploading client')

@@ -22,6 +22,23 @@ export const getDownloadedCoop = async () => {
 	}
 }
 
+export const getAllLocalAndDlnCoopList = async () => {
+	let localCoopList = JSON.parse(
+		await AsyncStorage.getItem('@coops:localAdded')
+	)
+	let dnlCoopList = JSON.parse(
+		await AsyncStorage.getItem('@coops:allDownloaded')
+	)
+	let allCoops = [...localCoopList, ...dnlCoopList]
+	return {
+		type: ACTION_TYPE.GET_DNL_LOCAL_COOP,
+		payload: allCoops.filter(
+			(v, i, a) =>
+				a.findIndex((t) => JSON.stringify(t) === JSON.stringify(v)) === i
+		),
+	}
+}
+
 export const addCoop = async (coop) => {
 	let coopList = JSON.parse(await AsyncStorage.getItem('@coops:localAdded'))
 
@@ -88,6 +105,7 @@ export const uploadLocalAddedCoop = async () => {
 			localAddedCoopList.map(async (localCoop) => {
 				await axios.post(coopUrl, [localCoop], await config())
 			})
+			await AsyncStorage.removeItem('@coops:localAdded')
 		} catch (error) {
 			alert('error. try agian for uploading coop')
 			console.log(error)

@@ -1,15 +1,23 @@
-import { Button, Container, Content, Picker, Text, View } from 'native-base'
-import React, { useEffect, useState } from 'react'
-import { Alert } from 'react-native'
+import {
+	Button,
+	Container,
+	Content,
+	Picker,
+	Text,
+	View,
+	Label,
+} from 'native-base'
+import React, { useState } from 'react'
+import AwesomeAlert from 'react-native-awesome-alerts'
 import CelsiusHeader from '../../components/common/CelsiusHeader'
 import CelsiusInput from '../../components/common/CelsiusInput'
 import PickerContainer from '../../components/common/PickerContainer'
-import { incrementDate } from '../../utility/Date'
 import styles from './style'
-import AwesomeAlert from 'react-native-awesome-alerts'
+import ChannelPartner from '../../components/common/ChannelPartner'
 
 const Buying = ({ navigation, route }) => {
 	const [showConfirmAlert, setShowConfirmAlert] = useState(false)
+	const [channelPartner, setChannelPartner] = useState('')
 
 	return (
 		<Container>
@@ -25,7 +33,11 @@ const Buying = ({ navigation, route }) => {
 					value={route.params.premium}
 					editable={false}
 				></CelsiusInput>
-
+				<ChannelPartner onValueChange={(value) => setChannelPartner(value)}>
+					<Label style={{ fontSize: 14, marginLeft: 10, marginTop: 14 }}>
+						Channel Partner
+					</Label>
+				</ChannelPartner>
 				<PickerContainer>
 					<Picker enabled={false}>
 						<Picker.Item label='Intermediary' value='key0' />

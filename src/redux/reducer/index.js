@@ -5,6 +5,7 @@ import { seaonReducer } from './SeasonReducer'
 import { clientReducer } from './ClientReducer'
 import { districtReducer } from './DistrictReducer'
 import { coopReducer } from './CoopReducer'
+import { channelPartnerReducer } from './ChannelPartnerReducer'
 
 export default combineReducers({
 	provinceList: provinceReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
 	clientList: clientReducer,
 	districtList: districtReducer,
 	coopList: coopReducer,
+	channelPartnerList: channelPartnerReducer,
 })

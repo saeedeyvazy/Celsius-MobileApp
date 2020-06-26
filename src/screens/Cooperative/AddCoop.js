@@ -14,11 +14,12 @@ import CelsiusHeader from '../../components/common/CelsiusHeader'
 import CelsiusInput from '../../components/common/CelsiusInput'
 import District from '../../components/common/District'
 import Province from '../../components/common/Province'
-import { addCoop } from '../../redux/actions/coop'
+import { addCoop, getAllLocalAndDlnCoopList } from '../../redux/actions/coop'
 import { isNullOrEmpty } from '../../utility/string'
 import uuid from 'react-native-uuid'
+import { connect } from 'react-redux'
 
-const AddCoop = ({ navigation }) => {
+const AddCoop = ({ navigation, getAllDnlLocalCoopList }) => {
 	const isFillAllRequiredField = () => {
 		const isFillFirstName = !isNullOrEmpty(firstName)
 		const isFillLastName = !isNullOrEmpty(lastName)
@@ -93,6 +94,7 @@ const AddCoop = ({ navigation }) => {
 			members: [],
 		})
 		setTimeout(() => setSaveCoopSuccAlertShow(true), 1000)
+		await getAllDnlLocalCoopList()
 	}
 
 	return (
@@ -269,4 +271,12 @@ const AddCoop = ({ navigation }) => {
 	)
 }
 
-export default AddCoop
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getAllDnlLocalCoopList: async () => {
+			dispatch(await getAllLocalAndDlnCoopList())
+		},
+	}
+}
+
+export default connect(null, mapDispatchToProps)(AddCoop)

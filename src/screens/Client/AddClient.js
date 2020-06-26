@@ -22,6 +22,7 @@ import {
 	getAllLocalAndDlnClientList,
 } from '../../redux/actions/client'
 import { isNullOrEmpty } from '../../utility/string'
+import ChannelPartner from '../../components/common/ChannelPartner'
 
 const AddClient = ({ navigation, getAllLocalDnlClientList }) => {
 	const isFillAllRequiredField = () => {
@@ -126,11 +127,6 @@ const AddClient = ({ navigation, getAllLocalDnlClientList }) => {
 					}}
 				>
 					<CelsiusInput
-						label='Channel partner'
-						onChangeText={(value) => setChannelPartner(value)}
-						value={channelPartner}
-					></CelsiusInput>
-					<CelsiusInput
 						label='Registeration number'
 						onChangeText={(value) => setRegNumber(value)}
 						value={regNumber}
@@ -183,6 +179,11 @@ const AddClient = ({ navigation, getAllLocalDnlClientList }) => {
 							<Icon name='star' style={{ fontSize: 9, color: 'red' }}></Icon>
 						</Label>
 					</Province>
+					<ChannelPartner onValueChange={(value) => setChannelPartner(value)}>
+						<Label style={{ fontSize: 14, marginLeft: 10, marginTop: 14 }}>
+							Channel Partner
+						</Label>
+					</ChannelPartner>
 					<District onValueChange={(value) => setDistrict(value)}>
 						<Label style={{ fontSize: 14, marginLeft: 10, marginTop: 14 }}>
 							District

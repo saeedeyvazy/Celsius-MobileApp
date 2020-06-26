@@ -16,9 +16,9 @@ import {
 } from 'native-base'
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { getDownloadedCoop } from '../../redux/actions/coop'
+import { getAllLocalAndDlnCoopList } from '../../redux/actions/coop'
 
-const Cooperative = ({ navigation, coopList, getDownloadedCoopList }) => {
+const Cooperative = ({ navigation, coopList, getDnlLocalCoopList }) => {
 	const navigateToViewCooperative = (coop) => {
 		navigation.navigate('AddViewCoopScreen', {
 			coopDetailInfo: coop,
@@ -28,7 +28,7 @@ const Cooperative = ({ navigation, coopList, getDownloadedCoopList }) => {
 	useEffect(() => {
 		const fetchAllCoop = async () => {
 			Array.isArray(coopList) && !coopList.length
-				? await getDownloadedCoopList()
+				? await getDnlLocalCoopList()
 				: null
 		}
 		fetchAllCoop()
@@ -86,8 +86,8 @@ const Cooperative = ({ navigation, coopList, getDownloadedCoopList }) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		getDownloadedCoopList: async () => {
-			dispatch(await getDownloadedCoop())
+		getDnlLocalCoopList: async () => {
+			dispatch(await getAllLocalAndDlnCoopList())
 		},
 	}
 }

@@ -12,7 +12,10 @@ import {
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import ClientComponent from '../../components/common/Client'
-import { getDownloadedClient } from '../../redux/actions/client'
+import {
+	getDownloadedClient,
+	getAllLocalAndDlnClientList,
+} from '../../redux/actions/client'
 
 const Client = ({ navigation, clientList, getDownloadedClientList }) => {
 	const navigateToViewClient = (client) => {
@@ -69,7 +72,7 @@ const Client = ({ navigation, clientList, getDownloadedClientList }) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		getDownloadedClientList: async () => {
-			dispatch(await getDownloadedClient())
+			dispatch(await getAllLocalAndDlnClientList())
 		},
 	}
 }

@@ -9,6 +9,9 @@ export const coopReducer = (state = INITIAL_STATE, action) => {
 		case ACTION_TYPE.GET_LOCAL_STORAGE_DOWNLOADED_COOP:
 			return action.payload
 
+		case ACTION_TYPE.GET_DNL_LOCAL_COOP:
+			return action.payload
+
 		default:
 			return state
 	}

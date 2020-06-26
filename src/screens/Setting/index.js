@@ -26,6 +26,7 @@ import { getAllProvince } from '../../redux/actions/province'
 import { getAllSeason } from '../../redux/actions/season'
 import { isNetworkAvailable } from '../../utility/network'
 import { uploadLocalAddedCoop, getAllCoops } from '../../redux/actions/coop'
+import { getAllChannelPartner } from '../../redux/actions/channelPartner'
 
 const Setting = ({
 	navigation,
@@ -35,6 +36,7 @@ const Setting = ({
 	getClientList,
 	getDistrictList,
 	getCoopList,
+	getChannelPartnerList,
 }) => {
 	const [isVisibleloginModal, setIsVisibleLoginModal] = useState(false)
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -56,6 +58,7 @@ const Setting = ({
 			await uploadLocalAddedCoop()
 
 			await getProvinceList()
+			await getChannelPartnerList()
 			await getCropList()
 			await getSeasonList()
 			await getClientList()
@@ -195,6 +198,10 @@ const mapDispatchToProps = (dispath) => {
 		},
 		getCoopList: async () => {
 			dispath(await getAllCoops())
+		},
+
+		getChannelPartnerList: async () => {
+			dispath(await getAllChannelPartner())
 		},
 	}
 }
