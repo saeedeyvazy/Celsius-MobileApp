@@ -29,13 +29,28 @@ export const getAllLocalAndDlnCoopList = async () => {
 	let dnlCoopList = JSON.parse(
 		await AsyncStorage.getItem('@coops:allDownloaded')
 	)
-	let allCoops = [...localCoopList, ...dnlCoopList]
+	let allCoops = []
+	if (localCoopList) allCoops = [...localCoopList, ...dnlCoopList]
+	else allCoops = dnlCoopList
 	return {
 		type: ACTION_TYPE.GET_DNL_LOCAL_COOP,
 		payload: allCoops.filter(
 			(v, i, a) =>
 				a.findIndex((t) => JSON.stringify(t) === JSON.stringify(v)) === i
 		),
+	}
+}
+
+export const uploadDnlCoop = async () => {
+	let dnlCoopList = JSON.parse(
+		await AsyncStorage.getItem('@coops:allDownloaded')
+	)
+	try {
+		dnlCoopList.map(async (dnlCoop) => {
+			await axios.post(coopUrl, [dnlCoop], await config())
+		})
+	} catch (error) {
+		console.log(error)
 	}
 }
 
@@ -77,7 +92,8 @@ export const getAllCoops = async () => {
 			mobile: coop.MobileNumber,
 			physAddress: coop.PhysAddress,
 			postalCode: coop.PostalCode,
-			mobileMoney: coop.MobileMoneyNumber,
+			mobileMoneyNumber: coop.MobileMoneyNumber,
+			mobileNumber: coop.MobileNumber,
 			regionId: coop.RegionId,
 		}))
 
@@ -111,4 +127,50 @@ export const uploadLocalAddedCoop = async () => {
 			console.log(error)
 		}
 	}
+}
+
+export const addMembers = async (coopId, memberList) => {
+	let localCoopList = JSON.parse(
+		await AsyncStorage.getItem('@coops:localAdded')
+	)
+	let dnlCoopList = JSON.parse(
+		await AsyncStorage.getItem('@coops:allDownloaded')
+	)
+
+	if (Array.isArray(localCoopList) && !localCoopList.length) {
+		const localSelectedCoopIndex = findCoop(localCoopList, coopId)
+
+		if (localSelectedCoopIndex) {
+			localCoopList[localSelectedCoopIndex].members = [
+				...localCoopList[localSelectedCoopIndex].members,
+				...memberList,
+			]
+
+			await AsyncStorage.setItem(
+				'@coops:localAdded',
+				JSON.stringify(localCoopList)
+			)
+		}
+	}
+
+	if (Array.isArray(dnlCoopList)) {
+		const dnlSelectedCoopIndex = findCoop(dnlCoopList, coopId)
+
+		if (dnlSelectedCoopIndex == 0 || dnlSelectedCoopIndex) {
+			dnlCoopList[dnlSelectedCoopIndex].members = [
+				...dnlCoopList[dnlSelectedCoopIndex].members,
+				...memberList,
+			]
+			await AsyncStorage.setItem(
+				'@coops:allDownloaded',
+				JSON.stringify(dnlCoopList)
+			)
+		}
+	}
+
+	return getAllLocalAndDlnCoopList()
+}
+
+const findCoop = (coopList, coopId) => {
+	return coopList.findIndex((item) => item.id == coopId)
 }

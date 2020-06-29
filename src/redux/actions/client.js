@@ -42,6 +42,27 @@ export const getAllLocalAndDlnClientList = async () => {
 	}
 }
 
+export const clientIdNameMap = async () => {
+	let localClientList = JSON.parse(
+		await AsyncStorage.getItem('@clients:localAdded')
+	)
+	let dnlClientList = JSON.parse(
+		await AsyncStorage.getItem('@clients:allDownloaded')
+	)
+	let allClients = dnlClientList
+	if (localClientList) allClients = [...localClientList, ...dnlClientList]
+	const map = new Map()
+	allClients
+		.filter(
+			(v, i, a) =>
+				a.findIndex((t) => JSON.stringify(t) === JSON.stringify(v)) === i
+		)
+		.map((client) => {
+			map.set(client.id, `${client.firstName} ${client.lastName}`)
+		})
+	return map
+}
+
 export const addClient = async (client) => {
 	let clientList = JSON.parse(await AsyncStorage.getItem('@clients:localAdded'))
 	clientList == null ? (clientList = []) : null
@@ -82,6 +103,7 @@ export const getAllClients = async () => {
 			postalCode: client.PostalCode,
 			mobileMoney: client.MobileMoneyNumber,
 			insuranceCompany: client.InsuranceCompany,
+			id: client.Id,
 		}))
 
 		storeDownloadedClientInLocal(clients)

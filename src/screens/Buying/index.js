@@ -15,10 +15,12 @@ import PickerContainer from '../../components/common/PickerContainer'
 import styles from './style'
 import ChannelPartner from '../../components/common/ChannelPartner'
 import Company from '../../components/common/Company'
+import { connect } from 'react-redux'
 
-const Buying = ({ navigation, route }) => {
+const Buying = ({ navigation, route, clientList }) => {
 	const [showConfirmAlert, setShowConfirmAlert] = useState(false)
 	const [channelPartner, setChannelPartner] = useState('')
+	const [selectedClient, setSelectedClient] = useState('key0')
 	const [company, setCompany] = useState('')
 
 	return (
@@ -49,10 +51,17 @@ const Buying = ({ navigation, route }) => {
 					</Picker>
 				</PickerContainer>
 				<PickerContainer>
-					<Picker>
-						<Picker.Item label='Client' value='key0' />
-						<Picker.Item label='Client 1' value='key1' />
-						<Picker.Item label='Client 2' value='key2' />
+					<Picker
+						selectedValue={selectedClient}
+						onValueChange={(id) => setSelectedClient(id)}
+					>
+						<Picker.Item label='select client' value='key0'></Picker.Item>
+						{clientList.map((client) => (
+							<Picker.Item
+								label={`${client.firstName} ${client.lastName}`}
+								value={client.id}
+							/>
+						))}
 					</Picker>
 				</PickerContainer>
 				<View style={styles.buttonContainer}>
@@ -75,7 +84,10 @@ const Buying = ({ navigation, route }) => {
 				showConfirmButton={true}
 				confirmText='   OK   '
 				confirmButtonColor='#DD6B55'
-				onConfirmPressed={() => setShowConfirmAlert(false)}
+				onConfirmPressed={() => {
+					setShowConfirmAlert(false)
+					navigation.navigate('Quote')
+				}}
 				messageStyle={{ textAlign: 'center' }}
 				contentContainerStyle={{ width: 300 }}
 			/>
@@ -83,4 +95,8 @@ const Buying = ({ navigation, route }) => {
 	)
 }
 
-export default Buying
+const mapStateToProps = (state) => {
+	const { clientList } = state
+	return { clientList }
+}
+export default connect(mapStateToProps)(Buying)

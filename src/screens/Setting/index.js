@@ -21,7 +21,11 @@ import {
 	getAllClients,
 	uploadLocalAddedClient,
 } from '../../redux/actions/client'
-import { getAllCoops, uploadLocalAddedCoop } from '../../redux/actions/coop'
+import {
+	getAllCoops,
+	uploadLocalAddedCoop,
+	uploadDnlCoop,
+} from '../../redux/actions/coop'
 import { getAllCrops } from '../../redux/actions/crops'
 import { getAllDistrict } from '../../redux/actions/district'
 import { getAllCompany } from '../../redux/actions/company'
@@ -58,6 +62,7 @@ const Setting = ({
 			setShowSpinner(true)
 			await uploadLocalAddedClient()
 			await uploadLocalAddedCoop()
+			await uploadDnlCoop()
 
 			await getProvinceList()
 			await getChannelPartnerList()

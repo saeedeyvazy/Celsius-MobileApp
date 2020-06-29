@@ -24,20 +24,22 @@ const AddViewClient = ({ navigation, route }) => {
 					<ListItem itemDivider>
 						<Text>Client Details Information</Text>
 					</ListItem>
-					{Object.keys(route.params.clientDetailInfo).map((key) => (
-						<ListItem>
-							<Left>
-								<Text style={{ color: '#00008b' }}>
-									{clientDetailInfoMap[key]}
-								</Text>
-							</Left>
-							<Body>
-								<Input editable={false} style={{ fontSize: 13 }}>
-									{route.params.clientDetailInfo[key]}
-								</Input>
-							</Body>
-						</ListItem>
-					))}
+					{Object.keys(route.params.clientDetailInfo).map((key) =>
+						clientDetailInfoMap[key] ? (
+							<ListItem>
+								<Left>
+									<Text style={{ color: '#00008b' }}>
+										{clientDetailInfoMap[key]}
+									</Text>
+								</Left>
+								<Body>
+									<Input editable={false} style={{ fontSize: 13 }}>
+										{route.params.clientDetailInfo[key]}
+									</Input>
+								</Body>
+							</ListItem>
+						) : null
+					)}
 				</List>
 			</Content>
 			<View>

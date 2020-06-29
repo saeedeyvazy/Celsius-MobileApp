@@ -17,11 +17,16 @@ import {
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getAllLocalAndDlnCoopList } from '../../redux/actions/coop'
+import { clientIdNameMap } from '../../redux/actions/client'
 
 const Cooperative = ({ navigation, coopList, getDnlLocalCoopList }) => {
-	const navigateToViewCooperative = (coop) => {
+	const navigateToViewCooperative = async (coop) => {
+		const idNameMap = await clientIdNameMap()
 		navigation.navigate('AddViewCoopScreen', {
-			coopDetailInfo: coop,
+			coopDetailInfo: {
+				coop,
+				members: coop.members.map((member) => idNameMap.get(member)),
+			},
 		})
 	}
 

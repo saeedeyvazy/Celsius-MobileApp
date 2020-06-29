@@ -24,6 +24,7 @@ import {
 import { isNullOrEmpty } from '../../utility/string'
 import ChannelPartner from '../../components/common/ChannelPartner'
 import Company from '../../components/common/Company'
+import uuid from 'react-native-uuid'
 
 const AddClient = ({ navigation, getAllLocalDnlClientList }) => {
 	const isFillAllRequiredField = () => {
@@ -112,6 +113,7 @@ const AddClient = ({ navigation, getAllLocalDnlClientList }) => {
 			idNumber,
 			regionId: 3,
 			insuranceCompany,
+			id: uuid.v1(),
 		})
 		await getAllLocalDnlClientList()
 
@@ -301,7 +303,10 @@ const AddClient = ({ navigation, getAllLocalDnlClientList }) => {
 				showConfirmButton={true}
 				confirmText='   OK   '
 				confirmButtonColor='#DD6B55'
-				onConfirmPressed={() => setSaveClientSuccAlertShow(false)}
+				onConfirmPressed={() => {
+					setSaveClientSuccAlertShow(false)
+					navigation.navigate('ClientScreen')
+				}}
 				messageStyle={{ textAlign: 'center' }}
 			/>
 			<AwesomeAlert

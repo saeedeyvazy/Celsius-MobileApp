@@ -1,11 +1,12 @@
 import { Button, Container, Content, Form, Text } from 'native-base'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import CelsiusHeader from '../../components/common/CelsiusHeader'
 import CelsiusInput from '../../components/common/CelsiusInput'
 import Crop from '../../components/common/Crop'
 import Province from '../../components/common/Province'
 import Season from '../../components/common/Season'
 import ViewCalculatePremium from '../../screens/ViewQuote'
+import { useIsFocused } from '@react-navigation/native'
 
 const Quote = ({ navigation }) => {
 	const [selectedProvince, setSelectedProvince] = useState('')
@@ -14,7 +15,11 @@ const Quote = ({ navigation }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false)
 	const avgYield = '4200'
 	const [insuranceArea, setInsuranceArea] = useState('')
+	const isFocused = useIsFocused()
 
+	useEffect(() => {
+		setInsuranceArea('')
+	}, [isFocused])
 	return (
 		<Container>
 			<CelsiusHeader></CelsiusHeader>
