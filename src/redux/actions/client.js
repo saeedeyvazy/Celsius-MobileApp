@@ -97,13 +97,14 @@ export const getAllClients = async () => {
 			email: client.Email,
 			district: client.District,
 			ethnicGroup: client.EthnicGroup,
-			contractMethod: client.ContractMethod,
-			mobile: client.Mobile,
+			contactMethod: client.ContactMethod,
+			mobile: client.MobileNumber,
 			physAddress: client.PhysAddress,
 			postalCode: client.PostalCode,
 			mobileMoney: client.MobileMoneyNumber,
 			insuranceCompany: client.InsuranceCompany,
 			id: client.Id,
+			gender: client.Gender,
 		}))
 
 		storeDownloadedClientInLocal(clients)

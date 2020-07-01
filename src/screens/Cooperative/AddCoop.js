@@ -18,6 +18,7 @@ import { addCoop, getAllLocalAndDlnCoopList } from '../../redux/actions/coop'
 import { isNullOrEmpty } from '../../utility/string'
 import uuid from 'react-native-uuid'
 import { connect } from 'react-redux'
+import ContactMethod from '../../components/common/ContactMethod'
 
 const AddCoop = ({ navigation, getAllDnlLocalCoopList }) => {
 	const isFillAllRequiredField = () => {
@@ -148,7 +149,7 @@ const AddCoop = ({ navigation, getAllDnlLocalCoopList }) => {
 					></CelsiusInput>
 					<Province onValueChange={(value) => setProvince(value)}>
 						<Label style={{ fontSize: 14, marginLeft: 10, marginTop: 14 }}>
-							Province
+							Region
 							<Icon name='star' style={{ fontSize: 9, color: 'red' }}></Icon>
 						</Label>
 					</Province>
@@ -158,11 +159,9 @@ const AddCoop = ({ navigation, getAllDnlLocalCoopList }) => {
 							<Icon name='star' style={{ fontSize: 9, color: 'red' }}></Icon>
 						</Label>
 					</District>
-					<CelsiusInput
-						label='Contact method'
-						onChangeText={(value) => setContactMethod(value)}
-						value={contactMethod}
-					></CelsiusInput>
+					<ContactMethod
+						onValueChange={(value) => setContactMethod(value)}
+					></ContactMethod>
 					<CelsiusInput
 						required
 						label='Mobile number'

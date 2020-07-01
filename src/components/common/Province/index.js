@@ -33,10 +33,7 @@ const Province = ({
 					onValueChange(value)
 				}}
 			>
-				<Picker.Item
-					label={hasPlaceholder ? 'Name of province' : ''}
-					value=''
-				/>
+				<Picker.Item label={hasPlaceholder ? 'Region' : ''} value='' />
 
 				{provinceList.map((province, index) => (
 					<Picker.Item label={province} value={province} key={index} />

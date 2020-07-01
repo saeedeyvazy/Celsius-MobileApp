@@ -11,6 +11,7 @@ const ClientListPicker = ({
 	isVisible,
 	clientList,
 	getAllClientList,
+	onBackButtonPress,
 }) => {
 	const [selectedClients, setSelectedClients] = useState([])
 
@@ -29,6 +30,7 @@ const ClientListPicker = ({
 			animationIn='fadeInRight'
 			animationOut='fadeOutRight'
 			animationOutTiming={600}
+			onBackButtonPress={() => onBackButtonPress()}
 		>
 			<Container>
 				<Content>

@@ -88,7 +88,7 @@ export const getAllCoops = async () => {
 			district: coop.District,
 			email: coop.Email,
 			district: coop.District,
-			contractMethod: coop.ContractMethod,
+			contactMethod: coop.ContactMethod,
 			mobile: coop.MobileNumber,
 			physAddress: coop.PhysAddress,
 			postalCode: coop.PostalCode,

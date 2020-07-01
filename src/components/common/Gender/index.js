@@ -19,7 +19,6 @@ export default Gender = () => {
 				<Picker.Item label='Gender' value='' />
 				<Picker.Item label='Male' value='Male' />
 				<Picker.Item label='Female' value='Female' />
-				<Picker.Item label='Other' value='Other' />
 			</Picker>
 		</PickerContainer>
 	)

@@ -135,9 +135,9 @@ const ViewCooperative = ({
 					isVisible={isVisible}
 					submitSelectedClients={(selectedClientList) => {
 						setIsVisible(false)
-
 						setLocalAddMember(selectedClientList)
 					}}
+					onBackButtonPress={() => setIsVisible(false)}
 				></ClientListPickerItem>
 				<View>
 					<Button

@@ -25,6 +25,7 @@ import { isNullOrEmpty } from '../../utility/string'
 import ChannelPartner from '../../components/common/ChannelPartner'
 import Company from '../../components/common/Company'
 import uuid from 'react-native-uuid'
+import ContactMethod from '../../components/common/ContactMethod'
 
 const AddClient = ({ navigation, getAllLocalDnlClientList }) => {
 	const isFillAllRequiredField = () => {
@@ -178,7 +179,7 @@ const AddClient = ({ navigation, getAllLocalDnlClientList }) => {
 					></CelsiusInput>
 					<Province onValueChange={(value) => setProvince(value)}>
 						<Label style={{ fontSize: 14, marginLeft: 10, marginTop: 14 }}>
-							Province
+							Region
 							<Icon name='star' style={{ fontSize: 9, color: 'red' }}></Icon>
 						</Label>
 					</Province>
@@ -201,7 +202,7 @@ const AddClient = ({ navigation, getAllLocalDnlClientList }) => {
 
 					<Calendar
 						required
-						label='Birth date'
+						label='Date of Birth'
 						onValueChange={(value) => setBirthDate(value)}
 					></Calendar>
 					<CelsiusInput
@@ -210,16 +211,15 @@ const AddClient = ({ navigation, getAllLocalDnlClientList }) => {
 						value={occupation}
 					></CelsiusInput>
 					<Gender></Gender>
+					<ContactMethod
+						onValueChange={(value) => setContactMethod(value)}
+					></ContactMethod>
 					<CelsiusInput
 						label='Ethnic group'
 						onChangeText={(value) => setEthnicGroup(value)}
 						value={ethnicGroup}
 					></CelsiusInput>
-					<CelsiusInput
-						label='Contact method'
-						onChangeText={(value) => setContactMethod(value)}
-						value={contactMethod}
-					></CelsiusInput>
+
 					<CelsiusInput
 						required
 						label='Mobile number'
