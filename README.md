@@ -1,4 +1,4 @@
-# Celsius-MobileApp
+# Celsius Mobile App
 
 Inclusive Crop Insurance Scheme Zambia ICISZ Mobile Application is an Inclusive Insurance Policy and Client Management Application for Android Smartphones. The application was specifically designed for the administration of the Inclusive Crop Insurance Scheme that is underwritten by Professional Insurance and Hollard Insurance. The Inclusive Crop Insurance Scheme is supported by FSD Zambia.
 
