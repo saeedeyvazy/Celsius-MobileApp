@@ -21,4 +21,6 @@ Email: customerservice@picz.co.zm
 FSD Zambia Contact Information
 info@fsdzambia.org
 
-# Demo
+
+## Project Google Play Store
+[https://play.google.com/store/apps/details?id=com.iclss]
